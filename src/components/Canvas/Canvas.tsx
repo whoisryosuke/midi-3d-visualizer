@@ -8,7 +8,7 @@ const Canvas = ({ children, ...props }: PropsWithChildren<Props>) => {
   return (
     <R3FCanvas {...props}>
       <Stats />
-      <OrbitControls />
+      {/* <OrbitControls /> */}
       <Preload all />
       {children}
     </R3FCanvas>

@@ -2,47 +2,47 @@ import React, { useEffect, useState } from "react";
 import throttle from "lodash.throttle";
 import { Note, useInputStore } from "../../../store/input";
 import BlockMesh from "./BlockMesh";
-import { DESTROY_TIME } from "../../../constants/block";
-
-type BlockSpawn = {
-  note: Note;
-  time: number;
-};
+import { BlockSpawn, DESTROY_TIME } from "../../../constants/block";
+import * as Tone from "tone";
 
 type Props = {};
 
 const Blocks = (props: Props) => {
   const [spawnPool, setSpawnPool] = useState<BlockSpawn[]>([]);
   const { input } = useInputStore();
-  const now = Date.now();
+  const now = Tone.now();
 
-  // console.log("spawnPool", spawnPool);
+  console.log("spawnPool", spawnPool);
 
   const addBlock = (newBlock: BlockSpawn) => {
     setSpawnPool((prevSpawns) => [...prevSpawns, newBlock]);
   };
   const throttledAddBlock = throttle(
-    () =>
+    (key: Note) =>
       addBlock({
-        note: "C2",
-        time: Date.now(),
+        note: key,
+        time: Tone.now(),
       }),
     1000
   );
 
   useEffect(() => {
-    if (input.C1 || input.C2) {
-      throttledAddBlock();
-    }
+    // Find out what input changed
+    const inputKeys = Object.keys(input) as Note[];
+    const pressedKeys = inputKeys.filter((key) => input[key]);
+
+    // Launch blocks for each key pressed
+    pressedKeys.forEach((key) => throttledAddBlock(key));
   }, [input]);
 
   useEffect(() => {
     const removeBlocks = () => {
-      const now = Date.now();
+      const now = Tone.now();
       setSpawnPool((prevSpawns) => {
         if (prevSpawns.length <= 0) return prevSpawns;
         const safePool = prevSpawns.filter((spawn) => {
-          return now - spawn.time < DESTROY_TIME;
+          console.log("destroy time", now - spawn.time, DESTROY_TIME / 1000);
+          return now - spawn.time < DESTROY_TIME / 1000;
         });
 
         return safePool;

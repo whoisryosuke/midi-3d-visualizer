@@ -8,6 +8,7 @@ const Scene = (props: Props) => {
   return (
     <Canvas>
       <Blocks />
+      <ambientLight position={[0, 3, 0]} intensity={1} />
     </Canvas>
   );
 };
