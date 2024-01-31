@@ -12,7 +12,7 @@ const Blocks = (props: Props) => {
   const { input } = useInputStore();
   const now = Tone.now();
 
-  console.log("spawnPool", spawnPool);
+  // console.log("spawnPool", spawnPool);
 
   const addBlock = (newBlock: BlockSpawn) => {
     setSpawnPool((prevSpawns) => [...prevSpawns, newBlock]);
@@ -41,7 +41,6 @@ const Blocks = (props: Props) => {
       setSpawnPool((prevSpawns) => {
         if (prevSpawns.length <= 0) return prevSpawns;
         const safePool = prevSpawns.filter((spawn) => {
-          console.log("destroy time", now - spawn.time, DESTROY_TIME / 1000);
           return now - spawn.time < DESTROY_TIME / 1000;
         });
 
