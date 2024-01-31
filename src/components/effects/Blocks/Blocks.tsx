@@ -21,17 +21,18 @@ const Blocks = (props: Props) => {
   const addBlock = (newBlock: BlockSpawn) => {
     setSpawnPool((prevSpawns) => [...prevSpawns, newBlock]);
   };
+  const throttledAddBlock = throttle(
+    () =>
+      addBlock({
+        note: "C2",
+        time: Date.now(),
+      }),
+    1000
+  );
 
   useEffect(() => {
     if (input.C1 || input.C2) {
-      throttle(
-        () =>
-          addBlock({
-            note: "C2",
-            time: Date.now(),
-          }),
-        1000
-      );
+      throttledAddBlock();
     }
   }, [input]);
 
