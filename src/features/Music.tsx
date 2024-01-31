@@ -36,6 +36,8 @@ const Music = (props: Props) => {
       synth.current?.triggerRelease(key, now);
       notesPlaying.current[key] = false;
     });
+
+    if (pressedKeys.length == 0) synth.current.releaseAll(now + 3);
   }, [input]);
 
   useEffect(() => {

@@ -4,6 +4,7 @@ import { Note, useInputStore } from "../../../store/input";
 import BlockMesh from "./BlockMesh";
 import { BlockSpawn, DESTROY_TIME } from "../../../constants/block";
 import * as Tone from "tone";
+import { createDateHash } from "../../../utils/hash";
 
 type Props = {};
 
@@ -22,6 +23,7 @@ const Blocks = (props: Props) => {
       addBlock({
         note: key,
         time: Tone.now(),
+        hash: createDateHash(),
       }),
     1000
   );
@@ -58,7 +60,11 @@ const Blocks = (props: Props) => {
   return (
     <>
       {spawnPool.map((spawn) => (
-        <BlockMesh key={spawn.time} {...spawn} now={now} />
+        <BlockMesh
+          key={`${spawn.note}-${spawn.time}-${spawn.hash}`}
+          {...spawn}
+          now={now}
+        />
       ))}
     </>
   );

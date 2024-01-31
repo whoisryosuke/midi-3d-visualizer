@@ -33,12 +33,12 @@ const BlockMesh = ({ now, time, note, ...props }: Props) => {
   const octave = note.slice(1) as Octaves;
   const positionX = X_POSITIONS[octave];
   const { position } = useSpring({
-    config: { duration: DESTROY_TIME, easing: easings.easeInOutQuad },
+    config: { duration: DESTROY_TIME, easing: easings.easeOutCirc },
     // loop: true,
     from: {
       position: [positionX, -2, 0],
     },
-    to: [{ position: [positionX, -2, 10] }],
+    to: [{ position: [positionX, -2, 3] }],
   });
   return (
     // @ts-ignore Strange TS error/possible bug
