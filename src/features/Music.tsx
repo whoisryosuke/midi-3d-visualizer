@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { UserInputMap, useInputStore } from "../store/input";
+import { Note, UserInputMap, useInputStore } from "../store/input";
 import * as Tone from "tone";
 
 type Props = {};
@@ -9,23 +9,37 @@ const Music = (props: Props) => {
   const { input } = useInputStore();
   // Create a synth and connect it to the main output (your speakers)
   const synth = useRef<Tone.PolySynth | null>(null);
+  const inputKeys = Object.keys(input) as Note[];
 
   useEffect(() => {
     const now = Tone.now();
     if (!synth.current) return;
-    if (input.C3 && !notesPlaying.current.C3) {
-      Tone.start();
-      //play a middle 'C' for the duration of an 8th note
-      //   synth.current.triggerAttackRelease("C2", "8n", now);
-      console.log("playing note!");
-      synth.current.triggerAttack("C3", now);
-      notesPlaying.current.C3 = true;
-    }
-    if (!input.C3) {
-      console.log("release!");
-      synth.current.triggerRelease("C3", now);
-      notesPlaying.current.C3 = false;
-    }
+
+    // Find out what input changed
+    const pressedKeys = inputKeys.filter((key) => input[key]);
+    const releasedKeys = inputKeys.filter((key) => !input[key]);
+
+    pressedKeys.forEach((key) => {
+      if (!notesPlaying.current[key]) {
+        Tone.start();
+        //play a middle 'C' for the duration of an 8th note
+        //   synth.current.triggerAttackRelease("C2", "8n", now);
+        console.log("playing note!");
+        synth.current?.triggerAttack(key, now);
+        notesPlaying.current[key] = true;
+      }
+    });
+
+    releasedKeys.forEach((key) => {
+      if (notesPlaying.current[key]) {
+        Tone.start();
+        //play a middle 'C' for the duration of an 8th note
+        //   synth.current.triggerAttackRelease("C2", "8n", now);
+        console.log("playing note!");
+        synth.current?.triggerRelease(key, now);
+        notesPlaying.current[key] = false;
+      }
+    });
   }, [input]);
 
   useEffect(() => {
