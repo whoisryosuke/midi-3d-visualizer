@@ -28,9 +28,9 @@ const MidiKeyboard = (props: Props) => {
     });
   }
 
-  console.log("instruments", instruments);
-  console.log("currentNotes", currentNotes);
-  console.log("input", input);
+  // console.log("instruments", instruments);
+  // console.log("currentNotes", currentNotes);
+  // console.log("input", input);
   useEffect(() => {
     WebMidi.enable()
       .then(onEnabled)

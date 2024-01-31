@@ -16,29 +16,25 @@ const Music = (props: Props) => {
     if (!synth.current) return;
 
     // Find out what input changed
-    const pressedKeys = inputKeys.filter((key) => input[key]);
-    const releasedKeys = inputKeys.filter((key) => !input[key]);
+    const pressedKeys = inputKeys.filter(
+      (key) => input[key] && !notesPlaying.current[key]
+    );
+    const releasedKeys = inputKeys.filter(
+      (key) => !input[key] && notesPlaying.current[key]
+    );
 
     pressedKeys.forEach((key) => {
-      if (!notesPlaying.current[key]) {
-        Tone.start();
-        //play a middle 'C' for the duration of an 8th note
-        //   synth.current.triggerAttackRelease("C2", "8n", now);
-        console.log("playing note!");
-        synth.current?.triggerAttack(key, now);
-        notesPlaying.current[key] = true;
-      }
+      Tone.start();
+      //   console.log("playing note!");
+      synth.current?.triggerAttack(key, now);
+      notesPlaying.current[key] = true;
     });
 
     releasedKeys.forEach((key) => {
-      if (notesPlaying.current[key]) {
-        Tone.start();
-        //play a middle 'C' for the duration of an 8th note
-        //   synth.current.triggerAttackRelease("C2", "8n", now);
-        console.log("playing note!");
-        synth.current?.triggerRelease(key, now);
-        notesPlaying.current[key] = false;
-      }
+      Tone.start();
+      //   console.log("releasing note!");
+      synth.current?.triggerRelease(key, now);
+      notesPlaying.current[key] = false;
     });
   }, [input]);
 
