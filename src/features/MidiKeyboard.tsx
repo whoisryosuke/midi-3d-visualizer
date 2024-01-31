@@ -4,7 +4,7 @@ import { Note, useInputStore } from "../store/input";
 
 type Props = {};
 
-const Midi = (props: Props) => {
+const MidiKeyboard = (props: Props) => {
   const [instruments, setInstrument] = useState<string[]>([]);
   const [playedNotes, setPlayedNotes] = useState<string[]>([]);
   const [currentNotes, setCurrentNotes] = useState<string[]>([]);
@@ -79,4 +79,4 @@ const Midi = (props: Props) => {
   return <></>;
 };
 
-export default Midi;
+export default MidiKeyboard;

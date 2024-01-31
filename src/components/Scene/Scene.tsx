@@ -1,16 +1,13 @@
-import React, { PropsWithChildren } from "react";
-import { Canvas, CanvasProps } from "@react-three/fiber";
-import { OrbitControls, Preload, Stats } from "@react-three/drei";
+import React from "react";
+import Blocks from "../effects/Blocks/Blocks";
+import Canvas from "../Canvas/Canvas";
 
-type Props = CanvasProps & {};
+type Props = {};
 
-const Scene = ({ children, ...props }: PropsWithChildren<Props>) => {
+const Scene = (props: Props) => {
   return (
-    <Canvas {...props}>
-      <Stats />
-      <OrbitControls />
-      <Preload all />
-      {children}
+    <Canvas>
+      <Blocks />
     </Canvas>
   );
 };
