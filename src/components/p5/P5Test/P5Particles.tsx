@@ -1,6 +1,16 @@
 import React, { useEffect, useRef } from "react";
 import p5 from "p5";
-import { Note, useInputStore } from "../../../store/input";
+import { Note, Octaves, useInputStore } from "../../../store/input";
+
+const COLORS: Record<Octaves, string> = {
+  1: "#9400D3",
+  2: "#4B0082",
+  3: "#0000FF",
+  4: "#00FF00",
+  5: "#FFFF00",
+  6: "#FF7F00",
+  7: "#FF0000",
+};
 
 type Props = {};
 
@@ -13,18 +23,19 @@ const P5Particles = (props: Props) => {
     class Particle {
       // setting the co-ordinates, radius and the
       // speed of a particle in both the co-ordinates axes.
-      constructor() {
+      constructor(octave: Octaves) {
         this.x = p.random(0, p.width);
         this.y = p.random(0, p.height);
         this.r = p.random(1, 8);
         this.xSpeed = p.random(-2, 2);
         this.ySpeed = p.random(-1, 1.5);
+        this.octave = octave;
       }
 
       // creation of a particle.
       createParticle() {
         p.noStroke();
-        p.fill("rgba(200,169,169,0.5)");
+        p.fill(COLORS[this.octave]);
         p.circle(this.x, this.y, this.r);
       }
 
@@ -42,7 +53,7 @@ const P5Particles = (props: Props) => {
         particles.forEach((element) => {
           let dis = p.dist(this.x, this.y, element.x, element.y);
           if (dis < 85) {
-            p.stroke("rgba(255,255,255,0.04)");
+            p.stroke(COLORS[this.octave]);
             p.line(this.x, this.y, element.x, element.y);
           }
         });
@@ -72,7 +83,10 @@ const P5Particles = (props: Props) => {
       const pressedKeys = inputKeys.filter((key) => input[key]);
 
       // Launch blocks for each key pressed
-      pressedKeys.forEach((key) => particles.push(new Particle()));
+      pressedKeys.forEach((key) => {
+        const octave = key.slice(1) as Octaves;
+        particles.push(new Particle(octave));
+      });
 
       for (let i = 0; i < particles.length; i++) {
         particles[i].createParticle();
