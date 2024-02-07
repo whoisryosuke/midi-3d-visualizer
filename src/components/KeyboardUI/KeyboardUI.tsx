@@ -20,20 +20,20 @@ const KeyboardUI = (props: Props) => {
         overflow: "hidden",
       }}
     >
-      <Stack>
+      <div style={{ display: "flex" }}>
         {baseNotes.map((baseNote) => {
           return (
             <div style={{ position: "relative" }}>
               <KeyboardKeyBlackSet />
-              <Stack>
+              <div style={{ display: "flex" }}>
                 {keys[baseNote].map((note) => (
                   <KeyboardKeyWhite key={note} label={note} />
                 ))}
-              </Stack>
+              </div>
             </div>
           );
         })}
-      </Stack>
+      </div>
     </div>
   );
 };

@@ -53,7 +53,7 @@ const Stack = ({
 
       if (wrapper) return <div style={showGapStyle}>{child}</div>;
       return React.cloneElement(child, {
-        ...showGapStyle,
+        style: showGapStyle,
       });
     }
     return child;
