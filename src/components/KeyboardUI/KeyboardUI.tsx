@@ -2,6 +2,7 @@ import React from "react";
 import Stack from "../Stack/Stack";
 import KeyboardKeyWhite from "./KeyboardKeyWhite";
 import { generateKeysByOctaveInOrder } from "../../utils/music-keyboard";
+import KeyboardKeyBlackSet from "./KeyboardKeyBlackSet";
 
 type Props = {};
 
@@ -11,11 +12,18 @@ const KeyboardUI = (props: Props) => {
   return (
     <div style={{ position: "fixed", bottom: 0, left: 0, zIndex: 420 }}>
       <Stack>
-        {baseNotes.map((baseNote) =>
-          keys[baseNote].map((note) => (
-            <KeyboardKeyWhite key={note} label={note} />
-          ))
-        )}
+        {baseNotes.map((baseNote) => {
+          return (
+            <div style={{ position: "relative" }}>
+              <KeyboardKeyBlackSet />
+              <Stack>
+                {keys[baseNote].map((note) => (
+                  <KeyboardKeyWhite key={note} label={note} />
+                ))}
+              </Stack>
+            </div>
+          );
+        })}
       </Stack>
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from "react";
 import styled from "styled-components";
 import { Note, useInputStore } from "../../store/input";
+import { KEYBOARD_WHITE_KEY_WIDTH } from "../../utils/constants";
 
 type StyledKeyboardKeyWhiteProps = PropsWithChildren<{
   pressed: boolean;
@@ -8,11 +9,12 @@ type StyledKeyboardKeyWhiteProps = PropsWithChildren<{
 
 const StyledKeyboardKeyWhite = styled.div<StyledKeyboardKeyWhiteProps>(
   {
-    width: 20,
+    width: KEYBOARD_WHITE_KEY_WIDTH,
     height: 100,
     backgroundColor: "rgba(255,255,255,0.5)",
     textAlign: "center",
     display: "flex",
+    justifyContent: "center",
     alignItems: "flex-end",
   },
   (props) =>
@@ -22,7 +24,7 @@ const StyledKeyboardKeyWhite = styled.div<StyledKeyboardKeyWhiteProps>(
 );
 
 const KeyboardKeyWhiteLabel = styled.span({
-  fontSize: "10px",
+  fontSize: "0.5em",
   color: "black",
 });
 
