@@ -10,7 +10,16 @@ const KeyboardUI = (props: Props) => {
   const keys = generateKeysByOctaveInOrder();
   const baseNotes = Object.keys(keys);
   return (
-    <div style={{ position: "fixed", bottom: 0, left: 0, zIndex: 420 }}>
+    <div
+      style={{
+        position: "fixed",
+        bottom: 0,
+        left: 0,
+        zIndex: 420,
+        borderRadius: 8,
+        overflow: "hidden",
+      }}
+    >
       <Stack>
         {baseNotes.map((baseNote) => {
           return (

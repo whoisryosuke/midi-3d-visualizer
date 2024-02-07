@@ -20,6 +20,8 @@ const StyledKeyboardKeyBlack = styled.div<StyledKeyboardKeyWhiteProps>(
     display: "flex",
     justifyContent: "center",
     alignItems: "flex-end",
+    borderBottomLeftRadius: "2px",
+    borderBottomRightRadius: "2px",
   },
   (props) =>
     props.pressed && {
