@@ -6,6 +6,7 @@ import Scene from "./components/Scene/Scene";
 import Music from "./features/Music";
 import Keyboard from "./features/Keyboard";
 import P5Particles from "./components/p5/P5Test/P5Particles";
+import KeyboardUI from "./components/KeyboardUI/KeyboardUI";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
       <P5Particles />
       <Music />
       <Keyboard />
+      <KeyboardUI />
     </div>
   );
 }
