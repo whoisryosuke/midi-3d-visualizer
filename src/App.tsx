@@ -1,5 +1,7 @@
 import { NoteMessageEvent, WebMidi } from "webmidi";
 import { useEffect, useState } from "react";
+import Midi from "./features/Midi";
+import Scene from "./components/Scene/Scene";
 
 export default function App() {
   const [instruments, setInstrument] = useState<string[]>([]);
@@ -70,11 +72,8 @@ export default function App() {
 
   return (
     <div className="App">
-      <h1>MIDI Sandbox</h1>
-      <h2>Current Note: {currentNotes.join(", ")}</h2>
-      {playedNotes.map((note, index) => (
-        <h4 key={`${index}-${note}`}>{note}</h4>
-      ))}
+      <Midi />
+      <Scene />
     </div>
   );
 }
